@@ -4,8 +4,8 @@ function ClassroomInfo() {
   return (
     <>
       <SideBar />
-      <section class="home-section">
-        <div class="text">ClassroomInfo</div>
+      <section className="home-section">
+        <div className="text">ClassroomInfo</div>
       </section>
     </>
   )

@@ -4,8 +4,8 @@ function Profile() {
   return (
     <>
       <SideBar />
-      <section class="home-section">
-        <div class="text">Progile</div>
+      <section className="home-section">
+        <div className="text">Progile</div>
       </section>
     </>
     

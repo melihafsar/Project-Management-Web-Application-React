@@ -5,8 +5,8 @@ function Contact() {
   return (
     <>
       <SideBar />
-      <section class="home-section">
-        <div class="text">Contact</div>
+      <section className="home-section">
+        <div className="text">Contact</div>
       </section>
 
     </>

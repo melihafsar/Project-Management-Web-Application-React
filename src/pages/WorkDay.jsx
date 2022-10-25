@@ -4,8 +4,8 @@ function WorkDay() {
   return (
     <>
       <SideBar />
-      <section class="home-section">
-        <div class="text">WorkDay</div>
+      <section className="home-section">
+        <div className="text">WorkDay</div>
       </section>
     </>
 
