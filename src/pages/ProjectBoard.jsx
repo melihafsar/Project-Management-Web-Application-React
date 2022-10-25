@@ -4,8 +4,8 @@ function ProjectBoard() {
   return (
     <>
       <SideBar />
-      <section class="home-section">
-        <div class="text">ProjectBoard</div>
+      <section className="home-section">
+        <div className="text">ProjectBoard</div>
       </section>
     </>
 

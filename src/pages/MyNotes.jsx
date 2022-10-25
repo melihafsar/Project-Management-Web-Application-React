@@ -4,8 +4,8 @@ function MyNotes() {
   return (
     <>
       <SideBar />
-      <section class="home-section">
-        <div class="text">My-Notes</div>
+      <section className="home-section">
+        <div className="text">My-Notes</div>
       </section>
     </>
 

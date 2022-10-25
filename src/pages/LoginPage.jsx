@@ -1,14 +1,16 @@
 import React from 'react'
-import SideBar from '../components/SideBar'
+import FormLogin from '../components/FormLogin';
+import Icon from "../static/marmaraLogo.png";
 
 function LoginPage() {
   return (
     <>
-      <SideBar />
-      <section class="home-section">
-        <div class="text">LoginPage</div>
-      </section>
-
+      <div className='form-section'>
+        <a className="logo" href="https://teknoloji.marmara.edu.tr/">
+          <img src={Icon} alt="Marmara Logo"/>
+        </a>
+          <FormLogin/>
+      </div>
     </>
   )
 }
