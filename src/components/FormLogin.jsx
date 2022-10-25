@@ -9,16 +9,18 @@ function FormLogin() {
     e.preventDefault();
   }
 
+//input element attribute --> required="true"
+
   return (
     <>
       <form onSubmit={handleSubmit} className="form login">
         <h1 className="form-title">Oturum Aç</h1>
         <div className="form-group">
-          <input className="form-group-input" type="text" required="true" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input className="form-group-input" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
           <label className="form-group-label">Email</label>
         </div>
         <div className="form-group">
-          <input className="form-group-input" name="password" required="true" value={password} onChange={(e) => setPassword(e.target.value)}/>
+          <input className="form-group-input" name="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           <label className="form-group-label">Şifre</label>
         </div>
         <button className="form-sign-in" type="submit">Oturum Aç</button>
