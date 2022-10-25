@@ -1,10 +1,9 @@
-import SideBar from "./components/SideBar";
+import MainRoute from "../src/routes/MainRoute";
 
 function App() {
   return (
     <div className="App">
-      <SideBar/>
-      
+      <MainRoute/>
     </div>
   );
 }
