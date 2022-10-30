@@ -1,6 +1,9 @@
 import React, {useState, useRef} from 'react'
+import { ModalContext, useContext } from "../context/ModalContext";
 
 function DragNDrop({data}) {
+    const  {setModalIsOpen, setModalInfoData}  = useContext(ModalContext);
+
     const [list,setList] = useState(data);
     const [dragging, setDragging] = useState(false);
     const dragItem = useRef();
@@ -57,10 +60,14 @@ function DragNDrop({data}) {
                         {
                             group.items.map((item, itemIndex) => (
                                 <div 
+                                className={dragging? getStyles({groupIndex, itemIndex})  : "dnd-item"}
+                                onClick={() => {
+                                    setModalIsOpen(true);
+                                    setModalInfoData({title : item});
+                                }}
                                     key={itemIndex} 
                                     draggable
                                     onDragStart={(e) => {handleDragStart(e, {groupIndex, itemIndex})}} onDragOver ={dragging? (e) => handleDragEnter(e, {groupIndex,itemIndex}) : null}
-                                    className={dragging? getStyles({groupIndex, itemIndex})  : "dnd-item"}
                                 >
                                     {item}
                                 </div>
