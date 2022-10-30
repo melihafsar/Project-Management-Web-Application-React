@@ -25,7 +25,6 @@ function DragNDrop({data}) {
     }
 
     function handleDragEnter(e, params) {
-        console.log("enter", params);
         const currentItem = dragItem.current;
         if(e.target !== dragNode.current){
             setList(oldList =>{
@@ -60,7 +59,7 @@ function DragNDrop({data}) {
                                 <div 
                                     key={itemIndex} 
                                     draggable
-                                    onDragStart={(e) => {handleDragStart(e, {groupIndex, itemIndex})}} onDragEnter={dragging? (e) => handleDragEnter(e, {groupIndex,itemIndex}) : null}
+                                    onDragStart={(e) => {handleDragStart(e, {groupIndex, itemIndex})}} onDragOver ={dragging? (e) => handleDragEnter(e, {groupIndex,itemIndex}) : null}
                                     className={dragging? getStyles({groupIndex, itemIndex})  : "dnd-item"}
                                 >
                                     {item}
