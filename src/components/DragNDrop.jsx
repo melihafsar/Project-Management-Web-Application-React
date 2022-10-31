@@ -54,9 +54,20 @@ function DragNDrop({ data }) {
                     <div key={groupIndex} className="dnd-group"
                         onDragEnter={dragging && !groupIndex.length ? (e) => handleDragEnter(e, { groupIndex, itemIndex: 0 }) : null}
                     >
-                        <div className="group-title">
-                            {group.title}
-                        </div>
+                        {groupIndex === 0 ?
+                            <div className={"work-row"}>
+                                <div className="group-title">
+                                    {group.title}
+                                </div>
+                                <div onClick={() => console.log("tiklandi")}>
+                                    <i className={'bx bx-plus'} style={{ color: '#ffffff' }}  ></i>
+                                </div>
+                            </div>
+                            :
+                            <div className="group-title">
+                                {group.title}
+                            </div>
+                        }
                         {
                             group.items.map((item, itemIndex) => (
                                 <div
@@ -73,10 +84,10 @@ function DragNDrop({ data }) {
                                     <h3 className='card-name'>{item.projectName}</h3>
                                     {/* <p className='card-paragraph'>{item.projectDescription}</p> */}
 
-                                    <hr/><br/>
+                                    <hr /><br />
 
                                     <p className='card-paragraph'> Projeyi Oluşturan Kişi: {item.projectCreator}</p>
-                                    
+
                                     <p className='card-paragraph'> Proje Önceliği: {item.projectPriority}</p>
                                     <p className='card-paragraph'> Projeyi Alan Kişi: {item.projectOwner ? `${item.projectOwner}` : "Bilinmiyor"}</p>
 

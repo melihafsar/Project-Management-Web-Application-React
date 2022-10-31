@@ -128,3 +128,21 @@
     font-size: 10px;
     margin: 2px;
 }
+
+.modal-paragraph {
+    margin: 3px;
+}
+
+.modal-bottom {
+    position: relative;
+    top: 50%;
+}
+
+.work-row {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
