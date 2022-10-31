@@ -46,9 +46,8 @@
     background-color: whitesmoke;
     color: black;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
+    flex-direction: column;
+    padding: 5px;
 }
 
 //dnd item son oge degilse alttan 5rem lik margin verir
@@ -114,3 +113,36 @@
     opacity: 0.99;
     color: white;
 }
+
+
+//card yapısı dnd-item olarak gecmekte
+.card-title{
+    font-size: 15px;
+
+}
+
+.card-name{
+    font-size: 13px;
+}
+.card-paragraph {
+    font-size: 10px;
+    margin: 2px;
+}
+
+.modal-paragraph {
+    margin: 3px;
+}
+
+.modal-bottom {
+    position: relative;
+    top: 50%;
+}
+
+.work-row {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
