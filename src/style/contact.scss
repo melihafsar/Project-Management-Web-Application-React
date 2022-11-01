@@ -10,7 +10,14 @@
   margin: 0;
   font-family: "Roboto", sans-serif;
   color: #10182f;
+
 }
+
+.card:hover {
+  transform: scale(1.5);
+        -webkit-transform: scale(1.05);
+}
+
 .container {
   display: flex;
   justify-content: space-evenly;
@@ -23,6 +30,8 @@
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   width: 280px;
+
+  
 }   
 
 .card-body {

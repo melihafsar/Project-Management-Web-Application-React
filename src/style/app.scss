@@ -3,3 +3,8 @@
 @use './login-page.scss';
 @use './project-board.scss';
 @use './contact.scss';
+@use '../style/work-day.scss';
+
+.color-black {
+    color: black;
+}

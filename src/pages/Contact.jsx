@@ -1,6 +1,6 @@
 import React from 'react'
 import SideBar from "../components/SideBar";
-import noUser from "../static/noUser.jpg";
+import ContactCard from "../components/ContactCard";
 
 const contactData = [
   {
@@ -11,15 +11,6 @@ const contactData = [
     personnelEmail: "melihafsar@marun.edu.tr",
     personnelTel: "05542114878",
     personnelAddress: "T4-WorkRoom"
-  },
-  {
-    personnelID: "3",
-    personnelName: "Yusuf",
-    personnelSurname: "Yıldırım",
-    personnelStatus: "Ögrenci",
-    personnelEmail: "yusufyildirim@marun.edu.tr",
-    personnelTel: "05547895662",
-    personnelAddress: "T4-302"
   },
   {
     personnelID: "4",
@@ -57,6 +48,69 @@ const contactData = [
     personnelTel: "05542114878",
     personnelAddress: "T4-306"
   },
+  {
+    personnelID: "3",
+    personnelName: "Yusuf",
+    personnelSurname: "Yıldırım",
+    personnelStatus: "Ögrenci",
+    personnelEmail: "yusufyildirim@marun.edu.tr",
+    personnelTel: "05547895662",
+    personnelAddress: "T4-302"
+  },
+  {
+    personnelID: "10",
+    personnelName: "Şamil",
+    personnelSurname: "Neoldum",
+    personnelStatus: "Ögrenci",
+    personnelEmail: "samilneoldum@marun.edu.tr",
+    personnelTel: "0554565662",
+    personnelAddress: "T4-320"
+  },
+  {
+    personnelID: "11",
+    personnelName: "Furkan",
+    personnelSurname: "Bostan",
+    personnelStatus: "Ögrenci",
+    personnelEmail: "furkanbostan@marun.edu.tr",
+    personnelTel: "0554656862",
+    personnelAddress: "T4-321"
+  },
+  {
+    personnelID: "12",
+    personnelName: "Semih",
+    personnelSurname: "Afşar",
+    personnelStatus: "Ögrenci",
+    personnelEmail: "semihafsar@marun.edu.tr",
+    personnelTel: "05544578762",
+    personnelAddress: "T4-322"
+  },
+  {
+    personnelID: "7",
+    personnelName: "Şerif",
+    personnelSurname: "Yılmaz",
+    personnelStatus: "Ögrenci",
+    personnelEmail: "serifyilmaz@marun.edu.tr",
+    personnelTel: "05542114878",
+    personnelAddress: "T4-306"
+  },
+  {
+    personnelID: "6",
+    personnelName: "Emirhan",
+    personnelSurname: "Ese",
+    personnelStatus: "Ögrenci",
+    personnelEmail: "eseemirhan@marun.edu.tr",
+    personnelTel: "055055477889",
+    personnelAddress: "T4-305"
+  },
+  {
+    personnelID: "3",
+    personnelName: "Yusuf",
+    personnelSurname: "Yıldırım",
+    personnelStatus: "Ögrenci",
+    personnelEmail: "yusufyildirim@marun.edu.tr",
+    personnelTel: "05547895662",
+    personnelAddress: "T4-302"
+  },
 ]
 
 function Contact() {
@@ -71,29 +125,7 @@ function Contact() {
           {
             contactData.map((personnel, index) => (
               <div key={index} className="container">
-                <div className="card">
-                  <div className="card-body">
-                    <div className="user">
-                      <img src={noUser} alt="user" />
-                      <div className="user-info">
-                        <h4>{personnel.personnelName} {personnel.personnelSurname}</h4>
-                        <small>{personnel.personnelStatus}</small>
-                      </div>
-                    </div>
-                    <h5>
-                      {personnel.personnelEmail}
-                    </h5>
-                    <div className='card1-row'>
-                      <p> Tel: 
-                        {personnel.personnelTel}
-                      </p>
-                      <p>
-                        {personnel.personnelAddress}
-                      </p>
-                    </div>
-
-                  </div>
-                </div>
+                <ContactCard data={personnel} />
               </div>
             ))
           }
