@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+* {
+  box-sizing: border-box;
+}
+.card-b {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  color: #10182f;
+
+}
+
+.card:hover {
+  transform: scale(1.5);
+        -webkit-transform: scale(1.05);
+}
+
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.card {
+  margin: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  width: 280px;
+
+  
+}   
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  min-height: 170px;
+}
+
+.card1-row {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.tag {
+  border-radius: 50px;
+  font-size: 12px;
+  margin: 0;
+  color: #fff;
+  padding: 2px 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.card-body p {
+  font-size: 13px;
+  margin: 0 0 10px;
+  padding: 0px 20px 0px 0px;
+}
+.user {
+  display: flex;
+  margin-top: auto;
+}
+
+.user img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+.user-info h4 {
+  margin: 0;
+}
+.user-info small {
+  color: #545d7a;
+}

@@ -140,7 +140,9 @@ function ProjectBoard() {
           >
             <ModalInfo data={modalInfoData} />
           </Modal>
-          <h1 className='page-title'>Project Board</h1>
+          <div className="text">
+          <h1 className='page-title'>Proje Tahtası</h1>
+        </div>
           <div className="text board">
             <DragNDrop data={data} />
           </div>

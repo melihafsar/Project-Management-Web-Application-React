@@ -55,7 +55,7 @@ function DragNDrop({ data }) {
                         onDragEnter={dragging && !groupIndex.length ? (e) => handleDragEnter(e, { groupIndex, itemIndex: 0 }) : null}
                     >
                         {groupIndex === 0 ?
-                            <div className={"work-row"}>
+                            <div className={"work-col"}>
                                 <div className="group-title">
                                     {group.title}
                                 </div>
