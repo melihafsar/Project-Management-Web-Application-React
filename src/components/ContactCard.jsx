@@ -1,6 +1,9 @@
 import React from 'react'
+import ButtonMailto from '../helpers/ButtonMailTo';
 import noUser from "../static/noUser.jpg";
+import ReactWhatsapp from 'react-whatsapp';
 import RuleHR from './RuleHR';
+
 
 function ContactCard(props) {
     return (
@@ -15,15 +18,17 @@ function ContactCard(props) {
                         </div>
                     </div>
                     <h5>
-                        {props.data.personnelEmail}
+                    <ButtonMailto label={props.data.personnelEmail} mailto= {`mailto: ${props.data.personnelEmail}`} />
                     </h5>
                     <RuleHR color="orange" />
                     <div className='card1-row'>
-                        <p> Tel:
-                            {props.data.personnelTel}
+                        <p>
+                        <i class='bx bxl-whatsapp'></i>
+                        <ReactWhatsapp number={`+9${props.data.personnelTel}`} message="Merhaba" style={{border: "none",
+    backgroundColor: "white"}}>{`-${props.data.personnelTel}`}</ReactWhatsapp>
                         </p>
                         <p>
-                            {props.data.personnelAddress}
+                             {props.data.personnelAddress}
                         </p>
                     </div>
                 </div>
