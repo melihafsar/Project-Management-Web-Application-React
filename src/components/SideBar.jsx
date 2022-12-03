@@ -16,7 +16,6 @@ const sideBarInfo = [
 function SideBar() {
     const [sideBar, setSideBar] = useState(true);
     useEffect(() => {
-        console.log("maunt");
     }, [sideBar])
 
     return (
