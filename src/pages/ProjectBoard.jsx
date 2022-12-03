@@ -96,12 +96,12 @@ const data = [
 const customStyles = {
   content: {
     position: 'absolute',
-    top: '20%',
-    left: '20%',
+    top: '15%',
+    left: '23%',
     right: 'auto',
     bottom: 'auto',
     width: '60%',
-    height: '60%',
+    height: '65%',
     border: '1px solid #ccc',
     background: '#fff',
     overflow: 'auto',
