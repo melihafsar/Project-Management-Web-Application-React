@@ -3,13 +3,15 @@ import { useState } from 'react';
 import axios from 'axios';
 import FormData from 'form-data';
 import RuleHR from './RuleHR'
-
+import { useAuth } from '../context/AuthContext';
 
 function ModalForm() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+
+    const { userId } = useAuth(); 
     //!:  person_id giris yapmis kisinin id'si olacak sekilde ayarlanacak.
-    const person_id = 100000;
+    const person_id = userId;
 
 
     async function doPostRequest() {
