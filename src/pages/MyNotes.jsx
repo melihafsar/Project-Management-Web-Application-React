@@ -36,9 +36,13 @@ function MyNotes() {
   const [modalFormIsOpen, setModalFormIsOpen] = useState(false);
   const [modalNoteData, setModalNoteData] = useState({});
   const [notes, setNotes] = useState([]);
-
+  const [onChange , setOnChange] = useState(false);
   const { userId } =  useAuth();
 
+  // This function starts rendering after deleting the note.
+  const setChange = () => {
+    setOnChange(!onChange);
+  }
 
   // setModalData controls the modal structure with the context API.  
   const setModalData = {
@@ -48,7 +52,8 @@ function MyNotes() {
 
   useEffect(() => {
     getNotes(userId);
-  }, [modalFormIsOpen, userId]);
+    setOnChange(false);
+  }, [modalFormIsOpen, userId, onChange]);
 
   function getNotes(userId) {
     return axios.get(`
@@ -85,7 +90,7 @@ function MyNotes() {
             }}
             overlayClassName="overlay"
           >
-            <ModalNote data={modalNoteData} />
+            <ModalNote data={modalNoteData} change={setChange} setModal={setModalIsOpen} />
           </Modal>
           <div className="text">
             <h1 className='page-title'>
@@ -101,7 +106,7 @@ function MyNotes() {
             {
               notes.map((note, index) => (
                 <div key={index} className="container">
-                  <NoteCard data={note} />
+                  <NoteCard data={note} change={setChange} />
                 </div>
               ))
             }

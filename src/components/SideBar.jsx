@@ -3,22 +3,35 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from '../firebase/firebaseConfig';
 import { useAuth } from '../context/AuthContext';
 import logo from '../static/TeknolojiF.png';
+import axios from 'axios';
 
 const sideBarInfo = [
-    { link: "/project-board",   i_className:              "bx bx-grid-alt", categoryName: "Planlama" },
-    { link: "/work-day",        i_className:              "bx bx-briefcase", categoryName: "Çalışma Günleri" },
-    { link: "/contact",         i_className:              "bx bx-envelope", categoryName: "İletişim" },
-    { link: "/my-notes",        i_className:              "bx bx-note", categoryName: "Notlarım" },
-    { link: "/classroom-info",  i_className:              "bx bx-folder", categoryName: "Derslik Bilgileri" },
-    { link: "https://takvim.marmara.edu.tr/", i_className:"bx bx-calendar", categoryName: "Akademik Takvim" },
+    { link: "/project-board", i_className: "bx bx-grid-alt", categoryName: "Planlama" },
+    { link: "/work-day", i_className: "bx bx-briefcase", categoryName: "Çalışma Günleri" },
+    { link: "/contact", i_className: "bx bx-envelope", categoryName: "İletişim" },
+    { link: "/my-notes", i_className: "bx bx-note", categoryName: "Notlarım" },
+    { link: "/classroom-info", i_className: "bx bx-folder", categoryName: "Derslik Bilgileri" },
+    { link: "https://takvim.marmara.edu.tr/", i_className: "bx bx-calendar", categoryName: "Akademik Takvim" },
     { link: "https://bys.marmara.edu.tr/v2", i_className: "bx bx-data", categoryName: "BYS Sistemi" },
-    { link: "/",                i_className:              "bx bx-cog", categoryName: "Ayarlar" },
+    { link: "/", i_className: "bx bx-cog", categoryName: "Ayarlar" },
 ];
 
 function SideBar() {
     const [sideBar, setSideBar] = useState(true);
-    const { setUser,setUserId, userId } = useAuth();
+    const { setUser, setUserId, userId } = useAuth();
+    const [userInfo, setUserInfo] = useState({});
 
+    const handleGetUserInfo = async () => {
+        if( userInfo.name === undefined ) {
+            const text = `http://localhost:3000/person_info/personInfo/:${userId}`;
+            await axios.get(text)
+                .then(response => {
+                    setUserInfo(response.data);
+                })
+                .catch(error => { console.error(error); return Promise.reject(error); });
+        }    
+    }
+        
     useEffect(() => {
     }, [sideBar, userId])
 
@@ -28,6 +41,7 @@ function SideBar() {
         await logout();
         setUser(false);
         setUserId(0);
+        setUserInfo({title: "after logout"});
         navigate('/')
     }
 
@@ -41,6 +55,7 @@ function SideBar() {
                     }
                     <i onClick={() => {
                         setSideBar(!sideBar);
+                        handleGetUserInfo();
                     }} className={sideBar ? "bx bx-menu" : "bx bx-menu-alt-right "} id="btn"></i>
                 </div>
                 <ul className="nav-list">
@@ -73,8 +88,8 @@ function SideBar() {
                     <li className="profile">
                         <div className="profile-details">
                             <div className="name_job">
-                                <div className="name">{userId}</div>
-                                <div className="job">Web Developer</div>
+                                <div className="name">{userInfo.name} {userInfo.surname}</div>
+                                <div className="job">{ userInfo.degree }</div>
                             </div>
                         </div>
                         <i className="bx bx-log-out" id="log_out" onClick={handleLogOut}></i>

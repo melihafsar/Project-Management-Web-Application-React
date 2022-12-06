@@ -6,10 +6,15 @@ function LoginPage() {
   return (
     <>
       <div className='form-section'>
-        <a className="logo" href="https://teknoloji.marmara.edu.tr/">
-          <img src={Icon} alt="Marmara Logo"/>
+
+        <a className="logo" href="/">
+          <img src={Icon} alt="Marmara Logo" />
         </a>
-          <FormLogin/>
+        <div className='form-layout'>
+          <h1 className="form-title" style={{color: "white",textDecoration: 'none' }}> Bilgisayar Mühendisliği Bölüm Yönetim Platformu</h1>
+          <FormLogin />
+
+        </div>
       </div>
     </>
   )
