@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from '../firebase/firebaseConfig';
+import { useAuth } from '../context/AuthContext';
 import logo from '../static/TeknolojiF.png';
 
 const sideBarInfo = [
@@ -15,8 +17,19 @@ const sideBarInfo = [
 
 function SideBar() {
     const [sideBar, setSideBar] = useState(true);
+    const { setUser,setUserId, userId } = useAuth();
+
     useEffect(() => {
-    }, [sideBar])
+    }, [sideBar, userId])
+
+    const navigate = useNavigate();
+
+    async function handleLogOut() {
+        await logout();
+        setUser(false);
+        setUserId(0);
+        navigate('/')
+    }
 
     return (
         <div>
@@ -60,11 +73,11 @@ function SideBar() {
                     <li className="profile">
                         <div className="profile-details">
                             <div className="name_job">
-                                <div className="name">Melih Afşar</div>
+                                <div className="name">{userId}</div>
                                 <div className="job">Web Developer</div>
                             </div>
                         </div>
-                        <i className="bx bx-log-out" id="log_out"></i>
+                        <i className="bx bx-log-out" id="log_out" onClick={handleLogOut}></i>
                     </li>
                 </ul>
             </div>

@@ -6,6 +6,7 @@ import ModalNote from '../components/ModalNote';
 import Modal from 'react-modal';
 import { ModalContext } from '../context/ModalContext';
 import ModalForm from '../components/ModalForm';
+import { useAuth } from '../context/AuthContext';
 
 const customStyles = {
   content: {
@@ -36,6 +37,9 @@ function MyNotes() {
   const [modalNoteData, setModalNoteData] = useState({});
   const [notes, setNotes] = useState([]);
 
+  const { userId } =  useAuth();
+
+
   // setModalData controls the modal structure with the context API.  
   const setModalData = {
     setModalIsOpen,
@@ -43,11 +47,14 @@ function MyNotes() {
   }
 
   useEffect(() => {
-    getUsers();
-  }, [modalFormIsOpen]);
-  function getUsers() {
-    return axios.get("http://localhost:3000/note_info")
-      .then(response => { setNotes(response.data); })
+    getNotes(userId);
+  }, [modalFormIsOpen, userId]);
+
+  function getNotes(userId) {
+    return axios.get(`
+    http://localhost:3000/note_info/person-notes/:${userId}`)
+      .then(response => { 
+        setNotes(response.data); })
       .catch(error => { console.error(error); return Promise.reject(error); });
   }
 
