@@ -15,7 +15,7 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     width: '60%',
-    height: '67%',
+    height: '63%',
     border: '1px solid #ccc',
     background: '#fff',
     overflow: 'auto',
@@ -32,7 +32,12 @@ Modal.setAppElement('#root');
 function ProjectBoard() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalInfoData, setModalInfoData] = useState({});
+  const [render, setRender] = useState(false);
   const [workInfo, setWorkInfo] = useState([]);
+
+  const changeRender = () => {
+    setRender(!render);
+  }
   
   async function getWorkInfo() {
     return await axios.get('http://localhost:3000/dashboard/')
@@ -42,17 +47,18 @@ function ProjectBoard() {
     .catch(error => { console.error(error); return Promise.reject(error); });
   }
   
-useEffect(() => { 
-}, [workInfo]);
+useEffect(() => {
+    getWorkInfo(); 
+}, [render]);
 
   const setModalData = {
     setModalIsOpen,
     setModalInfoData
   }
 
-  if(Object.keys(workInfo).length === 0) {
-    getWorkInfo();
-  }
+  // if(Object.keys(workInfo).length === 0) {
+  //   getWorkInfo();
+  // }
 
   return (
     <>
@@ -75,7 +81,7 @@ useEffect(() => {
           <h1 className='page-title'>Proje Tahtası</h1>
         </div>
           <div className="text board">
-            <DragNDrop newData={workInfo} />
+            <DragNDrop newData={workInfo} changeRender={changeRender} />
           </div>
         </section>
       </ModalContext.Provider>

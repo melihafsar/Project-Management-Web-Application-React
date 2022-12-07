@@ -1,6 +1,7 @@
 import React from 'react'
 import RuleHR from './RuleHR'
 import { ModalContext, useContext } from '../context/ModalContext';
+import { successAlert, errorAlert } from "../helpers/AlertHelper";
 import axios from 'axios';
 
 function NoteCard({data, change}) {
@@ -8,8 +9,12 @@ function NoteCard({data, change}) {
 
     const handleDeleteNote = async () => {
         await axios.delete(`http://localhost:3000/note_info/delete-note/:${data.note_id}`)
-            .then(response => { })
-            .catch(error => { console.error(error); return Promise.reject(error);
+            .then(response => { 
+                successAlert("Notunuz başarıyla silindi");
+            })
+            .catch(error => { console.error(error);
+                errorAlert("Notunuz silinemedi");
+                return Promise.reject(error);
         });
         change();
     }

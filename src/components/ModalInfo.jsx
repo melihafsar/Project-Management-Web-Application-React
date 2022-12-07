@@ -15,6 +15,9 @@ function ModalInfo(props) {
         <p className='modal-paragraph'> Projenin Oluşturma Tarihi: {props.data.create_time}</p>
       </div>
       <div className='work-row'>
+        <p className='modal-paragraph'> Projenin Tahmini Süresi: {props.data.estimated_time}</p>
+      </div>
+      <div className='work-row'>
         <p className='modal-paragraph'> Projeyi Alan Kişi: {props.data.work_owner ? `${props.data.work_owner}` : "Bilinmiyor"}</p>
         <p className='modal-paragraph'> Projenin Bitme Tarihi: {props.data.finish_time ? `${props.data.finish_time}` : "Henüz Bitmedi"}</p>
       </div>
