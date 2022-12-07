@@ -1,13 +1,18 @@
 import React, { useState, useRef } from 'react'
+import { useEffect } from 'react';
 import { ModalContext, useContext } from "../context/ModalContext";
 
-function DragNDrop({ data }) {
+function DragNDrop({ newData }) {
     const { setModalIsOpen, setModalInfoData } = useContext(ModalContext);
 
-    const [list, setList] = useState(data);
+    const [list, setList] = useState(newData);
     const [dragging, setDragging] = useState(false);
     const dragItem = useRef();
     const dragNode = useRef();
+
+    useEffect (() => {
+        setList(newData);
+    }, [newData]);
 
     function handleDragStart(e, params) {
         dragItem.current = params;
@@ -16,7 +21,6 @@ function DragNDrop({ data }) {
         setTimeout(() => {
             setDragging(true);
         }, 0)
-
     };
 
     function handleDragEnd() {
@@ -48,6 +52,7 @@ function DragNDrop({ data }) {
     }
 
     return (
+        
         <div className="drag-n-drop">
             {
                 list.map((group, groupIndex) => (
@@ -80,16 +85,16 @@ function DragNDrop({ data }) {
                                     draggable
                                     onDragStart={(e) => { handleDragStart(e, { groupIndex, itemIndex }) }} onDragOver={dragging ? (e) => handleDragEnter(e, { groupIndex, itemIndex }) : null}
                                 >
-                                    <h2 className='card-title'>Proje ID: {item.projectID}</h2>
-                                    <h3 className='card-name'>{item.projectName}</h3>
+                                    <h2 className='card-title'>Proje ID: {item.work_id}</h2>
+                                    <h3 className='card-name'>{item.work_name}</h3>
                                     {/* <p className='card-paragraph'>{item.projectDescription}</p> */}
 
                                     <hr /><br />
 
-                                    <p className='card-paragraph'> Projeyi Oluşturan Kişi: {item.projectCreator}</p>
+                                    <p className='card-paragraph'> Projeyi Oluşturan Kişi: {item.work_creator}</p>
 
-                                    <p className='card-paragraph'> Proje Önceliği: {item.projectPriority}</p>
-                                    <p className='card-paragraph'> Projeyi Alan Kişi: {item.projectOwner ? `${item.projectOwner}` : "Bilinmiyor"}</p>
+                                    <p className='card-paragraph'> Proje Önceliği: {item.priority}</p>
+                                    <p className='card-paragraph'> Projeyi Alan Kişi: {item.work_owner ? `${item.work_owner}` : "Bilinmiyor"}</p>
 
 
                                 </div>

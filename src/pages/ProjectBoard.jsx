@@ -4,94 +4,8 @@ import SideBar from "../components/SideBar";
 import Modal from "react-modal";
 import { ModalContext } from "../context/ModalContext";
 import ModalInfo from '../components/ModalInfo';
-
-const data = [
-  {
-    title: "Başlangıç",
-    items: [
-      {
-        projectID: 1,
-        projectName: "Afiş Tasarımı",
-        projectDescription: "Fakülte Semineri İçin konuya uygun iki farklı tasarım oluşturulacak.",
-        projectStartDay: "30.10.2022",
-        projectEndDay: null,
-        projectOwner: null,
-        projectCreator: "Melih Afşar",
-        projectPriority: "Yüksek",
-        projectLocation: null,
-      },
-      {
-        projectID: 2,
-        projectName: "Bilgisayar Onarımı",
-        projectDescription: "5 Bilgisayar için hard disk değişimi yapılmalıdır.",
-        projectStartDay: "30.11.2022",
-        projectEndDay: null,
-        projectOwner: null,
-        projectCreator: "Kenan Baylan",
-        projectPriority: "Orta",
-        projectLocation: "T4-115",
-      },
-      {
-        projectID: 23,
-        projectName: "Bilgisayar Yazılımı Yükleme",
-        projectDescription: "Proteus yazılımı yüklenmelidir.",
-        projectStartDay: "30.01.2023",
-        projectEndDay: null,
-        projectOwner: null,
-        projectCreator: "Ahmet Hasan Mutlu",
-        projectPriority: "Düşük",
-        projectLocation: "T4-101",
-      }
-    ]
-  },
-  {
-    title: "İlerliyor",
-    items: [
-      {
-        projectID: 10,
-        projectName: "Klima Kontrolü",
-        projectDescription: "Bölümdeki laboratuvarların klimaları kontrol edilmelidir.",
-        projectStartDay: "30.08.2022",
-        projectEndDay: null,
-        projectOwner: "Yusuf Ağaç",
-        projectCreator: "Yusuf Yıldırım",
-        projectPriority: "Düşük",
-        projectLocation: null,
-      }
-    ]
-  },
-  {
-    title: "Kontrol",
-    items: [
-      {
-        projectID: 15,
-        projectName: "Seminer Konuşmacıları",
-        projectDescription: "Yapay zeka semineri için konuşmacıların ayarlanması.",
-        projectStartDay: "30.09.2022",
-        projectEndDay: null,
-        projectOwner: "Şerif Yılmaz",
-        projectCreator: "Emirhan Ese",
-        projectPriority: "Yüksek",
-        projectLocation: null,
-      },
-    ]
-  },
-  {
-    title: "Bitti",
-    items: [
-      {
-        projectID: 23,
-        projectName: "Bilgisayar Açılmama",
-        projectDescription: "3 adet bilgisayarın açılışta siyah ekranda kalma sorunu vardır.",
-        projectStartDay: "03.01.2022",
-        projectEndDay: "05.01.2022",
-        projectOwner: "Melih Afşar",
-        projectCreator: "Aziz Eren Sağanda",
-        projectPriority: "Yüksek",
-        projectLocation: "T4-119",
-      },]
-  }
-]
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const customStyles = {
   content: {
@@ -101,7 +15,7 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     width: '60%',
-    height: '65%',
+    height: '67%',
     border: '1px solid #ccc',
     background: '#fff',
     overflow: 'auto',
@@ -118,10 +32,26 @@ Modal.setAppElement('#root');
 function ProjectBoard() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalInfoData, setModalInfoData] = useState({});
+  const [workInfo, setWorkInfo] = useState([]);
+  
+  async function getWorkInfo() {
+    return await axios.get('http://localhost:3000/dashboard/')
+    .then(response => {  
+      setWorkInfo(response.data.data);
+    })
+    .catch(error => { console.error(error); return Promise.reject(error); });
+  }
+  
+useEffect(() => { 
+}, [workInfo]);
 
   const setModalData = {
     setModalIsOpen,
     setModalInfoData
+  }
+
+  if(Object.keys(workInfo).length === 0) {
+    getWorkInfo();
   }
 
   return (
@@ -140,11 +70,12 @@ function ProjectBoard() {
           >
             <ModalInfo data={modalInfoData} />
           </Modal>
+          
           <div className="text">
           <h1 className='page-title'>Proje Tahtası</h1>
         </div>
           <div className="text board">
-            <DragNDrop data={data} />
+            <DragNDrop newData={workInfo} />
           </div>
         </section>
       </ModalContext.Provider>

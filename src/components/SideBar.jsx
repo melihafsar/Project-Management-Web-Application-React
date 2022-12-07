@@ -22,7 +22,7 @@ function SideBar() {
     const [userInfo, setUserInfo] = useState({});
 
     const handleGetUserInfo = async () => {
-        if( userInfo.name === undefined ) {
+        if( userInfo.name === undefined || userInfo.name === null ) {
             const text = `http://localhost:3000/person_info/personInfo/:${userId}`;
             await axios.get(text)
                 .then(response => {

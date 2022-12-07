@@ -36,8 +36,8 @@ function MyNotes() {
   const [modalFormIsOpen, setModalFormIsOpen] = useState(false);
   const [modalNoteData, setModalNoteData] = useState({});
   const [notes, setNotes] = useState([]);
-  const [onChange , setOnChange] = useState(false);
-  const { userId } =  useAuth();
+  const [onChange, setOnChange] = useState(false);
+  const { userId } = useAuth();
 
   // This function starts rendering after deleting the note.
   const setChange = () => {
@@ -58,8 +58,9 @@ function MyNotes() {
   function getNotes(userId) {
     return axios.get(`
     http://localhost:3000/note_info/person-notes/:${userId}`)
-      .then(response => { 
-        setNotes(response.data); })
+      .then(response => {
+        setNotes(response.data);
+      })
       .catch(error => { console.error(error); return Promise.reject(error); });
   }
 
@@ -78,7 +79,7 @@ function MyNotes() {
             }}
             overlayClassName="overlay"
           >
-            <ModalForm data={"elma"} />
+            <ModalForm />
           </Modal>
           {/* Modal --> ModalNote provides detailed information of notes on cards. */}
           <Modal
@@ -96,9 +97,9 @@ function MyNotes() {
             <h1 className='page-title'>
               Notlarım
               <div >
-                <i className={'bx bx-plus bx-md'} style={{ color: '#000000' }}  onClick={() => {
-                setModalFormIsOpen(true);
-              }}></i>
+                <i className={'bx bx-plus bx-md'} style={{ color: '#000000' }} onClick={() => {
+                  setModalFormIsOpen(true);
+                }}></i>
               </div>
             </h1>
           </div>
