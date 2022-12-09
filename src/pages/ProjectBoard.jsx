@@ -6,6 +6,7 @@ import { ModalContext } from "../context/ModalContext";
 import ModalInfo from '../components/ModalInfo';
 import { useEffect } from 'react';
 import axios from 'axios';
+import ModalBoardForm from '../components/ModalBoardForm';
 
 const customStyles = {
   content: {
@@ -31,6 +32,7 @@ Modal.setAppElement('#root');
 
 function ProjectBoard() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalWorkAddIsOpen, setModalWorkAddIsOpen] = useState(false);
   const [modalInfoData, setModalInfoData] = useState({});
   const [render, setRender] = useState(false);
   const [workInfo, setWorkInfo] = useState([]);
@@ -56,10 +58,6 @@ useEffect(() => {
     setModalInfoData
   }
 
-  // if(Object.keys(workInfo).length === 0) {
-  //   getWorkInfo();
-  // }
-
   return (
     <>
       <ModalContext.Provider value={setModalData}>
@@ -76,9 +74,25 @@ useEffect(() => {
           >
             <ModalInfo data={modalInfoData} />
           </Modal>
-          
+          <Modal
+            className={'modal'}
+            style={customStyles}
+            isOpen={modalWorkAddIsOpen}
+            onRequestClose={() => {
+              setModalWorkAddIsOpen(false);
+            }}
+            overlayClassName="overlay"
+          >
+            <ModalBoardForm render={changeRender} modalClose={setModalWorkAddIsOpen}/>
+          </Modal>
           <div className="text">
-          <h1 className='page-title'>Proje Tahtası</h1>
+          <h1 className='page-title'>Proje Tahtası
+          <div >
+                <i className={'bx bx-plus bx-md'} style={{ color: '#000000' }} onClick={() => {
+                  setModalWorkAddIsOpen(true);
+                }}></i>
+              </div>
+          </h1>
         </div>
           <div className="text board">
             <DragNDrop newData={workInfo} changeRender={changeRender} />

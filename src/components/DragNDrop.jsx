@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react'
 import { useEffect } from 'react';
 import { ModalContext, useContext } from "../context/ModalContext";
 import { successAlert, errorAlert } from "../helpers/AlertHelper";
+import { getFullDateAndTime } from '../helpers/time';
 
 function DragNDrop({ newData, changeRender }) {
     const { setModalIsOpen, setModalInfoData } = useContext(ModalContext);
@@ -32,7 +33,7 @@ function DragNDrop({ newData, changeRender }) {
             );
             successAlert("İş başarıyla atandı.");
             changeRender();
-            
+
 
         } catch (err) {
             errorAlert("İş ataması sırasında bir hata oluştu.");
@@ -40,13 +41,46 @@ function DragNDrop({ newData, changeRender }) {
         }
     };
 
+    const setWorkFinishTime = async (work_id, finish_time) => {
+        try {
+            const body = { finish_time, work_id, };
+            await axios.put(
+                "http://localhost:3000/dashboard/setWorkFinishTime",
+                body
+            );
+            changeRender();
+        } catch (err) {
+            errorAlert("İş tamamlanması sırasında bir hata oluştu.");
+            console.error(err.message);
+        }
+    };
+
     useEffect(() => {
         setList(newData);
     }, [newData]);
+    
+    const handleDeleteWork = async (work_id) => {
+        await axios.delete(`http://localhost:3000/dashboard/delete/:${work_id}`)
+            .then(response => { 
+                successAlert("İş başarıyla silindi");
+            })
+            .catch(error => { console.error(error);
+                errorAlert("İş silinemedi");
+                return Promise.reject(error);
+        });
+        changeRender();
+    }
 
     function handleDragStart(e, params) {
+
         dragItem.current = params;
         dragNode.current = e.target;
+
+        //TODO: yorum satırlarını kaldırarak proje bittiğinde taşınması engellenecek
+         if(dragItem.current.groupIndex === 3){
+             return;
+        }
+
         dragNode.current.addEventListener('dragend', handleDragEnd);
         setTimeout(() => {
             setDragging(true);
@@ -61,11 +95,16 @@ function DragNDrop({ newData, changeRender }) {
         if (work_id !== 0 && work_id !== null && work_id !== undefined) {
             if (work_status === 0) {
                 setWorkOwner(work_id, 0, 0);
-            } else {
+            }
+            else if (work_status === 3) {
+                setWorkOwner(work_id, userId, 3);
+                setWorkFinishTime(work_id, getFullDateAndTime());
+            }
+            else {
                 setWorkOwner(work_id, userId, work_status);
             }
         }
-        else{
+        else {
             errorAlert("İş ataması sırasında bir hata oluştu. Tekrar deneyiniz.");
         }
 
@@ -104,39 +143,39 @@ function DragNDrop({ newData, changeRender }) {
                     <div key={groupIndex} className="dnd-group"
                         onDragEnter={dragging && !groupIndex.length ? (e) => handleDragEnter(e, { groupIndex, itemIndex: 0 }) : null}
                     >
-                        {groupIndex === 0 ?
-                            <div className={"work-col"}>
-                                <div className="group-title">
-                                    {group.title}
-                                </div>
-                                <div onClick={() => console.log("tiklandi")}>
-                                    <i className={'bx bx-plus'} style={{ color: '#ffffff' }}  ></i>
-                                </div>
-                            </div>
-                            :
+                        <div className={"work-col"}>
                             <div className="group-title">
                                 {group.title}
                             </div>
-                        }
+                        </div>
                         {
                             group.items.map((item, itemIndex) => (
                                 <div
                                     id={item.work_id}
                                     className={dragging ? getStyles({ groupIndex, itemIndex }) : "dnd-item"}
+                                    
+                                    key={itemIndex}
+                                    draggable={item.work_owner === 0 || userId === item.work_owner ? true : false}
+                                    onDragStart={(e) => { handleDragStart(e, { groupIndex, itemIndex }) }} onDragOver={dragging ? (e) => handleDragEnter(e, { groupIndex, itemIndex }) : null}
+                                >
+                                    {   groupIndex === 3 &&  userId === item.work_creator ? 
+                                        <i className='bx bx-trash bx-sm' onClick={() => {
+                                            handleDeleteWork(item.work_id);
+                                        }}></i>
+                                        : null
+                                    }
+                                    <div
                                     onClick={() => {
                                         setModalIsOpen(true);
                                         setModalInfoData(item);
-                                    }}
-                                    key={itemIndex}
-                                    draggable={ item.work_owner === 0  || userId === item.work_owner ? true : false }
-                                    onDragStart={(e) => { handleDragStart(e, { groupIndex, itemIndex }) }} onDragOver={dragging ? (e) => handleDragEnter(e, { groupIndex, itemIndex }) : null}
-                                >
-                                    <h2 className='card-title'>Proje ID: {item.work_id}</h2>
-                                    <h3 className='card-name'>{item.work_name}</h3>
-                                    <hr /><br />
-                                    <p className='card-paragraph'> Projeyi Oluşturan Kişi: {item.work_creator}</p>
-                                    <p className='card-paragraph'> Proje Önceliği: {item.priority}</p>
-                                    <p className='card-paragraph'> Projeyi Alan Kişi: {item.work_owner ? `${item.work_owner}` : "Bilinmiyor"}</p>
+                                    }}>
+                                        <h2 className='card-title'>Proje ID: {item.work_id}</h2>
+                                        <h3 className='card-name'>{item.work_name}</h3>
+                                        <hr /><br />
+                                        <p className='card-paragraph'> Projeyi Oluşturan Kişi: {item.work_creator}</p>
+                                        <p className='card-paragraph'> Proje Önceliği: {item.priority}</p>
+                                        <p className='card-paragraph'> Projeyi Alan Kişi: {item.work_owner ? `${item.work_owner}` : "Bilinmiyor"}</p>
+                                    </div>
                                 </div>
                             ))
                         }

@@ -4,14 +4,24 @@ import { successAlert, errorAlert } from "../helpers/AlertHelper";
 import { translateMessage } from "./firebaseErrorTranslate";
 // Your web app's Firebase configuration
 
+// const firebaseConfig = {
+//     apiKey: process.env.REACT_APP_APIKEY,
+//     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+//     projectId: process.env.REACT_APP_PROJECT_ID,
+//     storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+//     messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+//     appId: process.env.REACT_APP_APP_ID,
+//     measurementId: process.env.REACT_APP_MEASUREMENT_ID,
+//   };
+
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_APIKEY,
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_APP_ID,
-    measurementId: process.env.REACT_APP_MEASUREMENT_ID,
+    apiKey: "AIzaSyDVeE-MyULfNVII21T5oyE8oAfuuarOoe4",
+    authDomain: "vtys-schoolproject.firebaseapp.com",
+    projectId: "vtys-schoolproject",
+    storageBucket: "vtys-schoolproject.appspot.com",
+    messagingSenderId: "829135674083",
+    appId: "1:829135674083:web:a5aee14ac91dfd409d03d6",
+    measurementId: "G-DEVPLTNJZ1"
   };
 
 // Initialize Firebase

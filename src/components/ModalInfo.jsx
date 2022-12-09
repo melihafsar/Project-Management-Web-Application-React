@@ -26,6 +26,7 @@ function ModalInfo(props) {
         <p className='modal-paragraph'> Projenin Bilinen Konumu: {props.data.classroom_id ? `${props.data.classroom_id}` : "Belirtilmemiş"}</p>
         <p className='modal-paragraph'> Proje Önceliği: {props.data.priority}</p>
         <RuleHR color="orange" width="100%"/>
+      <br />
       </div>
     </>
   )
