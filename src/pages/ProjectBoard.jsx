@@ -1,34 +1,34 @@
-import React, { useState } from 'react'
-import DragNDrop from '../components/DragNDrop';
+import React, { useState } from "react";
+import DragNDrop from "../components/DragNDrop";
 import SideBar from "../components/SideBar";
 import Modal from "react-modal";
 import { ModalContext } from "../context/ModalContext";
-import ModalInfo from '../components/ModalInfo';
-import { useEffect } from 'react';
-import axios from 'axios';
-import ModalBoardForm from '../components/ModalBoardForm';
+import ModalInfo from "../components/ModalInfo";
+import { useEffect } from "react";
+import axios from "axios";
+import ModalBoardForm from "../components/ModalBoardForm";
 
 const customStyles = {
   content: {
-    position: 'absolute',
-    top: '15%',
-    left: '23%',
-    right: 'auto',
-    bottom: 'auto',
-    width: '60%',
-    height: '63%',
-    border: '1px solid #ccc',
-    background: '#fff',
-    overflow: 'auto',
-    WebkitOverflowScrolling: 'touch',
-    borderRadius: '10px',
-    outline: 'none',
-    padding: '20px',
-    backgroundColor: 'rgb(17, 16, 28)',
-  }
-}
+    position: "absolute",
+    top: "15%",
+    left: "23%",
+    right: "auto",
+    bottom: "auto",
+    width: "60%",
+    height: "63%",
+    border: "1px solid #ccc",
+    background: "#fff",
+    overflow: "auto",
+    WebkitOverflowScrolling: "touch",
+    borderRadius: "10px",
+    outline: "none",
+    padding: "20px",
+    backgroundColor: "rgb(17, 16, 28)",
+  },
+};
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 function ProjectBoard() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -36,27 +36,45 @@ function ProjectBoard() {
   const [modalInfoData, setModalInfoData] = useState({});
   const [render, setRender] = useState(false);
   const [workInfo, setWorkInfo] = useState([]);
+  const [ownerInfo, setOwnerInfo] = useState([]);
 
   const changeRender = () => {
     setRender(!render);
-  }
-  
+  };
+
   async function getWorkInfo() {
-    return await axios.get('http://localhost:3000/dashboard/')
-    .then(response => {  
-      setWorkInfo(response.data.data);
-    })
-    .catch(error => { console.error(error); return Promise.reject(error); });
+    return await axios
+      .get("http://localhost:3000/dashboard/")
+      .then((response) => {
+        setWorkInfo(response.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        return Promise.reject(error);
+      });
   }
-  
-useEffect(() => {
-    getWorkInfo(); 
-}, [render]);
+
+  async function getOwnerInfo(userId) {
+    return await axios
+      .get(`http://localhost:3000/person_info/personInfo/:${userId}`)
+      .then((response) => {
+        setOwnerInfo(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        return Promise.reject(error);
+      });
+  }
+
+  useEffect(() => {
+    getWorkInfo();
+    getOwnerInfo(modalInfoData.work_owner);
+  }, [render, modalInfoData.work_owner]);
 
   const setModalData = {
     setModalIsOpen,
-    setModalInfoData
-  }
+    setModalInfoData,
+  };
 
   return (
     <>
@@ -64,7 +82,7 @@ useEffect(() => {
         <SideBar />
         <section className="home-section">
           <Modal
-            className={'modal'}
+            className={"modal"}
             style={customStyles}
             isOpen={modalIsOpen}
             onRequestClose={() => {
@@ -72,10 +90,10 @@ useEffect(() => {
             }}
             overlayClassName="overlay"
           >
-            <ModalInfo data={modalInfoData} />
+            <ModalInfo data={modalInfoData} ownerData={ownerInfo} />
           </Modal>
           <Modal
-            className={'modal'}
+            className={"modal"}
             style={customStyles}
             isOpen={modalWorkAddIsOpen}
             onRequestClose={() => {
@@ -83,25 +101,32 @@ useEffect(() => {
             }}
             overlayClassName="overlay"
           >
-            <ModalBoardForm render={changeRender} modalClose={setModalWorkAddIsOpen}/>
+            <ModalBoardForm
+              render={changeRender}
+              modalClose={setModalWorkAddIsOpen}
+            />
           </Modal>
           <div className="text">
-          <h1 className='page-title'>Proje Tahtası
-          <div >
-                <i className={'bx bx-plus bx-md'} style={{ color: '#000000' }} onClick={() => {
-                  setModalWorkAddIsOpen(true);
-                }}></i>
+            <h1 className="page-title">
+              Proje Tahtası
+              <div>
+                <i
+                  className={"bx bx-plus bx-md"}
+                  style={{ color: "#000000" }}
+                  onClick={() => {
+                    setModalWorkAddIsOpen(true);
+                  }}
+                ></i>
               </div>
-          </h1>
-        </div>
+            </h1>
+          </div>
           <div className="text board">
             <DragNDrop newData={workInfo} changeRender={changeRender} />
           </div>
         </section>
       </ModalContext.Provider>
     </>
-
-  )
+  );
 }
 
-export default ProjectBoard
+export default ProjectBoard;
