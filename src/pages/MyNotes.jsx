@@ -6,6 +6,7 @@ import ModalNote from '../components/ModalNote';
 import Modal from 'react-modal';
 import { ModalContext } from '../context/ModalContext';
 import ModalForm from '../components/ModalForm';
+import { useAuth } from '../context/AuthContext';
 
 const customStyles = {
   content: {
@@ -35,6 +36,13 @@ function MyNotes() {
   const [modalFormIsOpen, setModalFormIsOpen] = useState(false);
   const [modalNoteData, setModalNoteData] = useState({});
   const [notes, setNotes] = useState([]);
+  const [onChange, setOnChange] = useState(false);
+  const { userId } = useAuth();
+
+  // This function starts rendering after deleting the note.
+  const setChange = () => {
+    setOnChange(!onChange);
+  }
 
   // setModalData controls the modal structure with the context API.  
   const setModalData = {
@@ -43,11 +51,16 @@ function MyNotes() {
   }
 
   useEffect(() => {
-    getUsers();
-  }, [modalFormIsOpen]);
-  function getUsers() {
-    return axios.get("http://localhost:3000/note_info")
-      .then(response => { setNotes(response.data); })
+    getNotes(userId);
+    setOnChange(false);
+  }, [modalFormIsOpen, userId, onChange]);
+
+  function getNotes(userId) {
+    return axios.get(`
+    http://localhost:3000/note_info/person-notes/:${userId}`)
+      .then(response => {
+        setNotes(response.data);
+      })
       .catch(error => { console.error(error); return Promise.reject(error); });
   }
 
@@ -66,7 +79,7 @@ function MyNotes() {
             }}
             overlayClassName="overlay"
           >
-            <ModalForm data={"elma"} />
+            <ModalForm />
           </Modal>
           {/* Modal --> ModalNote provides detailed information of notes on cards. */}
           <Modal
@@ -78,15 +91,15 @@ function MyNotes() {
             }}
             overlayClassName="overlay"
           >
-            <ModalNote data={modalNoteData} />
+            <ModalNote data={modalNoteData} change={setChange} setModal={setModalIsOpen} />
           </Modal>
           <div className="text">
             <h1 className='page-title'>
               Notlarım
               <div >
-                <i className={'bx bx-plus bx-md'} style={{ color: '#000000' }}  onClick={() => {
-                setModalFormIsOpen(true);
-              }}></i>
+                <i className={'bx bx-plus bx-md'} style={{ color: '#000000' }} onClick={() => {
+                  setModalFormIsOpen(true);
+                }}></i>
               </div>
             </h1>
           </div>
@@ -94,7 +107,7 @@ function MyNotes() {
             {
               notes.map((note, index) => (
                 <div key={index} className="container">
-                  <NoteCard data={note} />
+                  <NoteCard data={note} change={setChange} />
                 </div>
               ))
             }

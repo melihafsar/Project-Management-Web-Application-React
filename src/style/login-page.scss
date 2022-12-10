@@ -1,4 +1,19 @@
 //form-login-register
+.form-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    margin-top: 5%;
+
+    .container {
+        flex-direction: row;
+        margin-bottom: 5px;
+    }
+}
+
+
+
 .form-section {
     position: relative;
     display: flex;

@@ -13,22 +13,22 @@ function ContactCard(props) {
                     <div className="user">
                         <img src={noUser} alt="user" />
                         <div className="user-info">
-                            <h4>{props.data.personnelName} {props.data.personnelSurname}</h4>
-                            <small>{props.data.personnelStatus}</small>
+                            <h4>{props.data.name} {props.data.surname}</h4>
+                            <small>{props.data.degree}</small>
                         </div>
                     </div>
                     <h5>
-                    <ButtonMailto label={props.data.personnelEmail} mailto= {`mailto: ${props.data.personnelEmail}`} />
+                    <ButtonMailto label={props.data.email} mailto= {`mailto: ${props.data.email}`}/>
                     </h5>
                     <RuleHR color="orange" />
                     <div className='card1-row'>
                         <p>
-                        <i class='bx bxl-whatsapp'></i>
-                        <ReactWhatsapp number={`+9${props.data.personnelTel}`} message="Merhaba" style={{border: "none",
-    backgroundColor: "white"}}>{`-${props.data.personnelTel}`}</ReactWhatsapp>
+                        <i className='bx bxl-whatsapp'></i>
+                        <ReactWhatsapp number={`+9${props.data.phone}`} message="Merhaba" style={{border: "none",
+    backgroundColor: "white"}}>{`-${props.data.phone}`}</ReactWhatsapp>
                         </p>
                         <p>
-                             {props.data.personnelAddress}
+                             {props.data.room_no}
                         </p>
                     </div>
                 </div>
