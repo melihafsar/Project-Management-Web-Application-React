@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from '../firebase/firebaseConfig';
+import { logout, auth } from '../firebase/firebaseConfig';
 import { useAuth } from '../context/AuthContext';
 import logo from '../static/TeknolojiF.png';
 import axios from 'axios';
@@ -11,15 +11,25 @@ const sideBarInfo = [
     { link: "/contact", i_className: "bx bx-envelope", categoryName: "İletişim" },
     { link: "/my-notes", i_className: "bx bx-note", categoryName: "Notlarım" },
     { link: "/classroom-info", i_className: "bx bx-folder", categoryName: "Derslik Bilgileri" },
+    { link: "/profile", i_className: "bx bx-cog", categoryName: "Kullanıcı Ayarları" },
     { link: "https://takvim.marmara.edu.tr/", i_className: "bx bx-calendar", categoryName: "Akademik Takvim" },
     { link: "https://bys.marmara.edu.tr/v2", i_className: "bx bx-data", categoryName: "BYS Sistemi" },
-    { link: "/", i_className: "bx bx-cog", categoryName: "Ayarlar" },
 ];
 
 function SideBar() {
     const [sideBar, setSideBar] = useState(true);
-    const { setUser, setUserId, userId } = useAuth();
+    const {setUser, setUserId, userId } = useAuth();
     const [userInfo, setUserInfo] = useState({});
+
+    const getUserInfo = () => {
+        const user = auth.currentUser;
+        if (user !== null) {
+            user.providerData.forEach((profile) => {
+            sessionStorage.setItem('userMail', profile.email);
+            sessionStorage.setItem('lastSignIn', user.metadata.lastSignInTime);
+          });
+        }
+      }
 
     const handleGetUserInfo = async () => {
         if( userInfo.name === undefined || userInfo.name === null ) {
@@ -31,7 +41,7 @@ function SideBar() {
                 .catch(error => { console.error(error); return Promise.reject(error); });
         }    
     }
-        
+        getUserInfo();
     useEffect(() => {
     }, [sideBar, userId])
 
@@ -41,7 +51,7 @@ function SideBar() {
         await logout();
         setUser(false);
         setUserId(0);
-        setUserInfo({title: "after logout"});
+        sessionStorage.clear();
         navigate('/')
     }
 

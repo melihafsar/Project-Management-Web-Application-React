@@ -21,7 +21,7 @@ function MainRoute() {
                 <Route path='/contact' element={<PrivateRoute><Contact /></PrivateRoute>} />
                 <Route path='/my-notes' element={<PrivateRoute><MyNotes /></PrivateRoute>} />
                 <Route path='/classroom-info' element={<PrivateRoute><ClassroomInfo/></PrivateRoute>} />
-                <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>} />
+                <Route path='/profile' element={<PrivateRoute><Profile/></PrivateRoute>} />
                 <Route path='*' element={<Page404 />} />
             </Routes>
         </>

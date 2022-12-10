@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, updatePassword } from "firebase/auth";
 import { successAlert, errorAlert } from "../helpers/AlertHelper";
 import { translateMessage } from "./firebaseErrorTranslate";
 // Your web app's Firebase configuration
@@ -28,7 +28,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 
-const auth = getAuth();
+export const auth = getAuth();
 export const login = async (email, password) => {
     try {
         const { user } = await signInWithEmailAndPassword(auth, email, password)
@@ -69,5 +69,15 @@ export const getUserInfo = () => {
         return null;
     }
 }
+
+export const updateNewPassword = async (user, newPassword) => {
+    updatePassword(user, newPassword).then(() => {
+        successAlert("Şifreniz başarıyla güncellendi.");
+      }).catch((error) => {
+        console.log(error.code);
+        errorAlert( "Şifreniz güncellenemedi. " + translateMessage(error.code));
+      });
+}
+
 
 export default app

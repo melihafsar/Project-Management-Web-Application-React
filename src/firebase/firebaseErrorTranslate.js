@@ -16,6 +16,12 @@ export function translateMessage(message) {
         case "auth/weak-password":
             newMessage = "Parolanız minimum 6 karakter olmalıdır."
             break;
+        case "auth/requires-recent-login":
+            newMessage = "Bu işlemi yapabilmek için tekrar giriş yapmanız gerekmektedir."
+            break;
+        case "auth/too-many-requests":
+            newMessage = "Çok fazla istek gönderdiniz. Lütfen daha sonra tekrar deneyiniz."
+            break;
     
         default:
             newMessage = message

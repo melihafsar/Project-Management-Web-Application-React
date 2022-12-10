@@ -30,9 +30,6 @@ function ModalForm() {
             errorAlert("Notunuz eklenemedi");
             return Promise.reject(error);
         }
-
-
-
     }
 
     const handleSubmit = (event) => {
@@ -61,7 +58,7 @@ function ModalForm() {
                 <br />
                 <label> Not Ayrıntıları
                     <br />
-                    <textarea value={description} style={{ width: "100%" }} onChange={(e) => setDescription(e.target.value)} />
+                    <textarea value={description} style={{ width: "100%", resize: "none", height: "150px" }} onChange={(e) => setDescription(e.target.value)} />
                 </label>
                 <br />
                 <div className='form-button-container'>
