@@ -55,6 +55,7 @@ function ProjectBoard() {
   }
 
   async function getOwnerInfo(userId) {
+    userId = userId || 0;
     return await axios
       .get(`http://localhost:3000/person_info/personInfo/:${userId}`)
       .then((response) => {
