@@ -1,8 +1,6 @@
 import React from 'react'
 import RuleHR from './RuleHR'
 
-
-
 function WorkDayCard({data}) {
     return (
         <>
@@ -10,8 +8,8 @@ function WorkDayCard({data}) {
                 <div className="card-body">
                     <div className="user">
                         <div className="user-info">
-                            <h4>{data.personnelName} {data.personnelSurname}</h4>
-                            <small>{data.personnelStatus}</small>
+                            <h4>{data[0].name} {data[0].surname}</h4>
+                            <small>{data[0].degree}</small>
                         </div>
                     </div>
                     <RuleHR color="orange" />
@@ -19,23 +17,16 @@ function WorkDayCard({data}) {
                         Çalışma Gün ve Saatleri
                     </h6>
                     <div className='work-row'>
-                        {   data.personnelWorkDay.monday &&
-                            <p>Pazartesi: {data.personnelWorkDay.monday}</p>
+                        {
+                            data.map((date, index) => (
+                                <div key={index} className='work-col'>
+                                    <p>{date.day}</p>
+                                    <p>{date.start_time}.00 - {date.end_time}.00</p>
+                                </div>
+                            ))
                         }
-                        {   data.personnelWorkDay.tuesday &&
-                            <p>Salı: {data.personnelWorkDay.tuesday}</p>
-                        }
-                        {   data.personnelWorkDay.wednesday &&
-                            <p>Çarşamba: {data.personnelWorkDay.wednesday}</p>
-                        }
-                        {   data.personnelWorkDay.thursday &&
-                            <p>Perşembe: {data.personnelWorkDay.thursday}</p>
-                        }
-                        {   data.personnelWorkDay.friday &&
-                            <p>Cuma: {data.personnelWorkDay.friday}</p>
-                        }
-                        <p>
-                            {data.personnelAddress}
+                        <p style={{fontWeight: 'bold', fontSize: '0.7em'}}>
+                            {data[0].room_no}
                         </p>
                     </div>
                 </div>
