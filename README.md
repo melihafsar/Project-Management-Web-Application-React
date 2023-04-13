@@ -49,6 +49,9 @@ npm start
 ```
 <hr>
 
+## Proje-Frontend Docker Image Linki
+* [Frontend](https://hub.docker.com/r/melihafsar/management-web-frontend "Frontend")
+
 ## Dockerfile ile projeyi build etmek
 
 ```sh 
@@ -58,7 +61,7 @@ docker build -t management-frontend .
 
 ```sh
 #Projeyi çalıştırın.
-docker run -d --rm --name management-frontend -p 3000:3000 management-frontend
+docker run -d --rm --name management-frontend -p 3001:3000 management-frontend
 ```
 Uygulamayı çalıştırdıktan sonra `http://localhost:3000` adresine giderek uygulamayı kullanabilirsiniz.
 
