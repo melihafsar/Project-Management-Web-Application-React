@@ -21,14 +21,16 @@
 Bu repository'de sadece frontend kısmı bulunmaktadır. Backend repository'si için [buraya](https://github.com/MelihAfsar/Project-Management-Web-Application-ExpressJs) tıklayabilirsiniz.
 
 ## Proje Gereksinimleri
-* Node.js
-* npm
-* PostgreSQL
+* Node.js (frontend ve backend)
+* npm (frontend ve backend)
+* PostgreSQL (backend)
 
 <hr>
 
 ## Kurulum
-Yukarıda belirtilen backend repository'si **docker-compose** dosyasını çalıştırarak programı inceleyebilirsiniz. Eğer veritabanı bağlantısı kullanmak istemiyorsanız. _Aşağıdaki adımları takip edebilirsiniz._
+Yukarıda belirtilen backend repository'si **docker-compose** dosyasını çalıştırarak programı inceleyebilirsiniz. Eğer veritabanı bağlantısı kullanmak istemiyorsanız. Yalnızca frontend projesini çalıştırmak için _Aşağıdaki adımları takip edebilirsiniz._
+
+> Veritabanı ve backend bağlantısı olmadığı için bazı özellikler çalışmayacaktır. Örneğin görevlerin durumunu değiştirmek, görevleri silmek, görevleri revize etmek gibi. Tam anlamıyla tüm fonksiyonları çalıştırmak için [buraya](https://github.com/MelihAfsar/Project-Management-Web-Application-ExpressJs) tıklayabilirsiniz.
 
 * Projeyi klonlayın.
 
@@ -61,7 +63,7 @@ docker build -t management-frontend .
 
 ```sh
 #Projeyi çalıştırın.
-docker run -d --rm --name management-frontend -p 3001:3000 management-frontend
+docker run -d --rm --name management-frontend -p 3000:3000 management-frontend
 ```
 Uygulamayı çalıştırdıktan sonra `http://localhost:3000` adresine giderek uygulamayı kullanabilirsiniz.
 
